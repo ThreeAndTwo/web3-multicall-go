@@ -1,6 +1,6 @@
 module github.com/alethio/web3-multicall-go
 
-go 1.12
+go 1.16
 
 require (
 	github.com/alethio/web3-go v0.0.6
