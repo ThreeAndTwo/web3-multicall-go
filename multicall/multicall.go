@@ -40,7 +40,7 @@ type CallResult struct {
 
 type Result struct {
 	BlockNumber uint64
-	Calls       map[string]CallResult
+	Calls       []CallResult
 }
 
 const AggregateMethod = "0x17352e13"

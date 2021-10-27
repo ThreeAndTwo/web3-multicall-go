@@ -281,15 +281,14 @@ func (calls ViewCalls) decodeRaw(raw string) (*Result, error) {
 	}
 	result := &Result{}
 	result.BlockNumber = decoded.BlockNumber.Uint64()
-	result.Calls = make(map[string]CallResult)
-
-	for index, call := range calls {
+	result.Calls = []CallResult{}
+	for index, _ := range calls {
 		callResult := CallResult{
 			Success: decoded.Returns[index].Success,
 			Raw:     decoded.Returns[index].Data,
 			Decoded: []interface{}{},
 		}
-		result.Calls[call.id] = callResult
+		result.Calls = append(result.Calls, callResult)
 	}
 
 	return result, nil
@@ -302,7 +301,8 @@ func (calls ViewCalls) decode(raw string) (*Result, error) {
 	}
 	result := &Result{}
 	result.BlockNumber = decoded.BlockNumber.Uint64()
-	result.Calls = make(map[string]CallResult)
+	result.Calls = []CallResult{}
+
 	for index, call := range calls {
 		callResult := CallResult{
 			Success: decoded.Returns[index].Success,
@@ -315,7 +315,7 @@ func (calls ViewCalls) decode(raw string) (*Result, error) {
 			}
 			callResult.Decoded = returnValues
 		}
-		result.Calls[call.id] = callResult
+		result.Calls = append(result.Calls, callResult)
 	}
 
 	return result, nil

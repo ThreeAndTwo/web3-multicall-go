@@ -15,11 +15,19 @@ func TestExampleViwCall(t *testing.T) {
 	vc := multicall.NewViewCall(
 		"key.1",
 		"0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643",
-		"totalReserves()(uint256)",
+		"name()(string)",  // Compound Dai
 		[]interface{}{},
 	)
-	vcs := multicall.ViewCalls{vc}
-	mc, _ := multicall.New(eth)
+
+	vc1 := multicall.NewViewCall(
+		"key.2",
+		"0x6b175474e89094c44da98b954eedeac495271d0f",
+		"name()(string)",	// Dai Stablecoin
+		[]interface{}{},
+	)
+
+	vcs := multicall.ViewCalls{vc, vc1}
+	mc, _ := multicall.New(eth, multicall.ContractAddress("0x5eb3fa2dfecdde21c950813c665e9364fa609bd2"))
 	block := "latest"
 	res, err := mc.Call(vcs, block)
 	if err != nil {
